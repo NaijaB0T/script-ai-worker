@@ -1,18 +1,30 @@
+# wrangler.toml -- CORRECTED AND FINAL VERSION
+
 name = "script-processor-service"
 main = "src/index.js"
-compatibility_date = "2024-01-01"
+compatibility_date = "2024-03-01"
 
-[[durable_objects.bindings]]
-name = "SHOT_LIST_DO"
-class_name = "ShotListDurableObject"
+# === Bindings for the Main Worker ===
 
+# This binding is for your R2 bucket.
 [[r2_buckets]]
 binding = "R2_BUCKET"
-bucket_name = "my-script-processor-bucket-2025"
+bucket_name = "my-script-processor-bucket-2025" # Make sure this name is correct
 
+# This binding is for Workers AI.
 [ai]
 binding = "AI"
 
+# === Migration to Create and Configure the Durable Object ===
+
 [[migrations]]
-tag = "v1"
+tag = "v2" # Using a new tag to ensure the migration runs
 new_sqlite_classes = ["ShotListDurableObject"]
+
+# THIS IS THE CRUCIAL FIX:
+# This line tells the Durable Object to inherit the R2 and AI bindings
+# from the main worker that creates it.
+inherit_bindings_from = [
+  "R2_BUCKET",
+  "AI"
+]
