@@ -15,10 +15,4 @@ binding = "AI"
 
 [[migrations]]
 tag = "v3"
-rename_classes = [
-  { from = "ShotListDurableObject", to = "ShotListDurableObject" }
-]
-inherit_bindings_from = [
-  "R2_BUCKET",
-  "AI"
-]
+new_sqlite_classes = ["ShotListDurableObject"]
