@@ -12,3 +12,7 @@ bucket_name = "my-script-processor-bucket-2025"
 
 [ai]
 binding = "AI"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["ShotListDurableObject"]
