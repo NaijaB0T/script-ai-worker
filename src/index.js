@@ -6,6 +6,8 @@ export class ShotListDurableObject {
   constructor(ctx, env) {
     this.ctx = ctx;
     this.env = env;
+    console.log('DO Constructor - R2_BUCKET available:', !!env.R2_BUCKET);
+    console.log('DO Constructor - AI available:', !!env.AI);
   }
 
   // The fetch handler is the entry point for communications to the DO.
@@ -109,7 +111,15 @@ export default {
       const doStub = env.SHOT_LIST_DO.get(doId);
 
       // We don't wait, just kick off the DO
-      doStub.fetch('https://do-internal/start');
+      // Pass the bindings as headers
+      doStub.fetch('https://do-internal/start', {
+        headers: {
+          'x-bindings': JSON.stringify({
+            R2_BUCKET: 'available',
+            AI: 'available'
+          })
+        }
+      });
 
       return new Response(JSON.stringify({ jobId }), { headers: { 'Content-Type': 'application/json' } });
     }
