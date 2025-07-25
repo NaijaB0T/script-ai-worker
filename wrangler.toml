@@ -15,4 +15,4 @@ binding = "AI"
 
 [[migrations]]
 tag = "v1"
-new_classes = ["ShotListDurableObject"]
+new_sqlite_classes = ["ShotListDurableObject"]
