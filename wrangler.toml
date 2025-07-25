@@ -1,4 +1,4 @@
-name = "script-processor-service"
+name = "script-worker"
 main = "src/index.js"
 compatibility_date = "2024-03-01"
 
