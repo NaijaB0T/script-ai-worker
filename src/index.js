@@ -105,8 +105,8 @@ export default {
       const jobId = crypto.randomUUID();
       await env.R2_BUCKET.put(jobId, script);
 
-      const doId = env.ShotListDurableObject.idFromName(jobId);
-      const doStub = env.ShotListDurableObject.get(doId);
+      const doId = env.SHOT_LIST_DO.idFromName(jobId);
+      const doStub = env.SHOT_LIST_DO.get(doId);
 
       // We don't wait, just kick off the DO
       doStub.fetch('https://do-internal/start');
@@ -117,8 +117,8 @@ export default {
     // Route: GET /status/:jobId
     if (pathSegments[0] === 'status' && pathSegments[1]) {
       const jobId = pathSegments[1];
-      const doId = env.ShotListDurableObject.idFromName(jobId);
-      const doStub = env.ShotListDurableObject.get(doId);
+      const doId = env.SHOT_LIST_DO.idFromName(jobId);
+      const doStub = env.SHOT_LIST_DO.get(doId);
       return doStub.fetch('https://do-internal/status');
     }
 
